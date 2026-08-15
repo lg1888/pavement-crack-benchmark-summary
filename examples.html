@@ -12,34 +12,52 @@
     h1 { margin:0; color:#173f63; font-size:28px; }
     a { color:#075f96; font-weight:700; text-decoration:none; white-space:nowrap; }
     a:hover { text-decoration:underline; }
-    img { display:block; width:100%; height:auto; background:#fff; border:1px solid #cbd8e2; border-radius:8px; }
-    @media (max-width:700px) { main{padding:12px 8px} h1{font-size:20px} .top{align-items:flex-start} }
+    .columns { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:center; background:#fff; border:1px solid #cbd8e2; border-bottom:0; border-radius:8px 8px 0 0; padding:13px 0 11px; }
+    .columns a, .columns span { text-align:center; color:#173f63; font-size:22px; font-weight:700; }
+    .columns a { text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:4px; }
+    img { display:block; width:100%; height:auto; background:#fff; border:1px solid #cbd8e2; border-top:0; border-radius:0 0 8px 8px; }
+    @media (max-width:700px) { main{padding:12px 8px} h1{font-size:20px} .top{align-items:flex-start} .columns a,.columns span{font-size:15px} }
   </style>
 </head>
 <body>
 <main>
   <div class="top"><h1 id="title">Prediction Examples</h1><a href="pavement_crack_dataset_benchmark.html">Back to summary</a></div>
+  <div class="columns">
+    <a id="originalLink" target="_blank" rel="noopener">Original &#8599;</a>
+    <a id="benchmarkLink" target="_blank" rel="noopener">Benchmark &#8599;</a>
+    <span id="predictionLabel">Prediction</span>
+  </div>
   <img id="figure" alt="Original images, benchmark labels, and predictions">
 </main>
 <script>
 const datasets = {
-  crack500: ['Crack500', 'assets/crack500_examples_10.jpg'],
-  pavebench: ['PaveBench', 'assets/pavebench_examples_10.jpg'],
-  cfd: ['CFD', 'assets/cfd_examples_10.jpg'],
-  gaps384: ['GAPs384', 'assets/gaps384_examples_10.jpg'],
-  crackls315: ['CrackLS315', 'assets/crackls315_examples_10.jpg'],
-  crkwh100: ['CRKWH100', 'assets/crkwh100_examples_10.jpg'],
-  crackseg354: ['CrackSeg', 'assets/crackseg354_examples_10.jpg'],
-  pavecrack1300: ['PaveCrack1300', 'assets/pavecrack1300_examples_10.jpg'],
-  sut_crack: ['SUT-Crack', 'assets/sut_crack_examples_10.jpg'],
-  nha12d: ['NHA12D', 'assets/nha12d_examples_10.jpg'],
-  deepcrack237: ['DeepCrack237', 'assets/deepcrack237_examples_10.jpg']
+  crack500: {name:'Crack500', image:'assets/crack500_examples_10.jpg', original:'https://github.com/fyangneil/pavement-crack-detection', benchmark:'https://github.com/fyangneil/pavement-crack-detection', version:'V60'},
+  pavebench: {name:'PaveBench', image:'assets/pavebench_examples_10.jpg', original:'https://huggingface.co/datasets/MML-Group/PaveBench', benchmark:'https://huggingface.co/datasets/MML-Group/PaveBench', version:'V60'},
+  cfd: {name:'CFD', image:'assets/cfd_examples_10.jpg', original:'https://github.com/cuilimeng/CrackForest-dataset', benchmark:'https://github.com/cuilimeng/CrackForest-dataset', version:'V60'},
+  gaps384: {name:'GAPs384', image:'assets/gaps384_examples_10.jpg', original:'https://www.tu-ilmenau.de/universitaet/fakultaeten/fakultaet-informatik-und-automatisierung/profil/institute-und-fachgebiete/institut-fuer-technische-informatik-und-ingenieurinformatik/fachgebiet-neuroinformatik-und-kognitive-robotik/data-sets-code/german-asphalt-pavement-distress-dataset-gaps', benchmark:'https://github.com/fyangneil/pavement-crack-detection', version:'V60'},
+  crackls315: {name:'CrackLS315', image:'assets/crackls315_examples_10.jpg', original:'https://github.com/qinnzou/DeepCrack', benchmark:'https://github.com/qinnzou/DeepCrack', version:'V60'},
+  crkwh100: {name:'CRKWH100', image:'assets/crkwh100_examples_10.jpg', original:'https://1drv.ms/f/s!AittnGm6vRKLtylBkxVXw5arGn6R', benchmark:'https://1drv.ms/f/s!AittnGm6vRKLglyfiCw_C6BDeFsP', version:'V60'},
+  crackseg354: {name:'CrackSeg', image:'assets/crackseg354_examples_10.jpg', original:'https://github.com/TRMetaGroup/CrackSeg', benchmark:'https://github.com/TRMetaGroup/CrackSeg', version:'V73'},
+  pavecrack1300: {name:'PaveCrack1300', image:'assets/pavecrack1300_examples_10.jpg', original:'https://data.mendeley.com/datasets/8b27pdcxv7/1', benchmark:'https://data.mendeley.com/datasets/8b27pdcxv7/1', version:'V60'},
+  sut_crack: {name:'SUT-Crack', image:'assets/sut_crack_examples_10.jpg', original:'https://data.mendeley.com/datasets/gsbmknrhkv/5', benchmark:'https://data.mendeley.com/datasets/gsbmknrhkv/5', version:'V60'},
+  nha12d: {name:'NHA12D', image:'assets/nha12d_examples_10.jpg', original:'https://github.com/ZheningHuang/NHA12D-Crack-Detection-Dataset-and-Comparison-Study', benchmark:'https://github.com/ZheningHuang/NHA12D-Crack-Detection-Dataset-and-Comparison-Study', version:'V60'},
+  deepcrack237: {name:'DeepCrack237', image:'assets/deepcrack237_examples_10.jpg', original:'https://github.com/yhlleo/DeepCrack', benchmark:'https://github.com/yhlleo/DeepCrack', version:'V60'}
 };
 const key = new URLSearchParams(location.search).get('dataset');
 const item = datasets[key] || datasets.pavebench;
-document.title = item[0] + ' Prediction Examples';
-document.getElementById('title').textContent = item[0] + ' — Prediction Examples';
-document.getElementById('figure').src = item[1];
+document.title = item.name + ' Prediction Examples';
+document.getElementById('title').textContent = item.name + ' — Prediction Examples';
+document.getElementById('figure').src = item.image;
+document.getElementById('predictionLabel').textContent = 'Prediction (' + item.version + ')';
+for (const [id, url, label] of [
+  ['originalLink', item.original, item.name + ' original-image source'],
+  ['benchmarkLink', item.benchmark, item.name + ' benchmark-label source']
+]) {
+  const link = document.getElementById(id);
+  link.href = url;
+  link.title = label;
+  link.setAttribute('aria-label', label + ' (opens in a new tab)');
+}
 </script>
 </body>
 </html>
