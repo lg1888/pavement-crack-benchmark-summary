@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prediction Examples</title>
+  <style>
+    * { box-sizing:border-box; }
+    body { margin:0; background:#f5f7f9; color:#17212b; font-family:Arial,sans-serif; }
+    main { width:100%; margin:0 auto; padding:18px 20px 28px; }
+    .top { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:14px; }
+    h1 { margin:0; color:#173f63; font-size:28px; }
+    a { color:#075f96; font-weight:700; text-decoration:none; white-space:nowrap; }
+    a:hover { text-decoration:underline; }
+    img { display:block; width:100%; height:auto; background:#fff; border:1px solid #cbd8e2; border-radius:8px; }
+    @media (max-width:700px) { main{padding:12px 8px} h1{font-size:20px} .top{align-items:flex-start} }
+  </style>
+</head>
+<body>
+<main>
+  <div class="top"><h1 id="title">Prediction Examples</h1><a href="pavement_crack_dataset_benchmark.html">Back to summary</a></div>
+  <img id="figure" alt="Original images, benchmark labels, and predictions">
+</main>
+<script>
+const datasets = {
+  crack500: ['Crack500', 'assets/crack500_examples.png'],
+  pavebench: ['PaveBench', 'assets/pavebench_examples.png'],
+  cfd: ['CFD', 'assets/cfd_examples.png'],
+  gaps384: ['GAPs384', 'assets/gaps384_examples.png'],
+  crackls315: ['CrackLS315', 'assets/crackls315_examples.png'],
+  crkwh100: ['CRKWH100', 'assets/crkwh100_examples.png'],
+  crackseg354: ['CrackSeg354', 'assets/crackseg354_examples.png'],
+  pavecrack1300: ['PaveCrack1300', 'assets/pavecrack1300_examples.png'],
+  sut_crack: ['SUT-Crack', 'assets/sut_crack_examples.png'],
+  nha12d: ['NHA12D', 'assets/nha12d_examples.png'],
+  deepcrack237: ['DeepCrack237', 'assets/deepcrack237_examples.png']
+};
+const key = new URLSearchParams(location.search).get('dataset');
+const item = datasets[key] || datasets.pavebench;
+document.title = item[0] + ' Prediction Examples';
+document.getElementById('title').textContent = item[0] + ' — Prediction Examples';
+document.getElementById('figure').src = item[1];
+</script>
+</body>
+</html>

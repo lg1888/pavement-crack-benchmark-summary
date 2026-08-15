@@ -27,6 +27,7 @@
     td.best { font-weight:800; color:#075f96; }
     a { color:#075f96; font-weight:700; text-decoration:none; }
     a:hover { text-decoration:underline; }
+    .result-link { display:block; text-decoration:underline; text-underline-offset:2px; }
     .note { margin:14px 2px 0; color:#5a6874; line-height:1.6; font-size:13px; }
     .note strong { color:#8a5909; }
     @media (max-width:1100px) { h1 { font-size:22px; } .subtitle,.note { font-size:11px; } table { font-size:8.5px; } th,td { padding:6px 2px; } }
@@ -74,5 +75,16 @@
     </table>
   </div>
 </main>
+<script>
+const exampleKeys = ['crack500','pavebench','cfd','gaps384','crackls315','crkwh100','crackseg354','pavecrack1300','sut_crack','nha12d','deepcrack237'];
+document.querySelectorAll('tbody tr').forEach((row, index) => {
+  const cell = row.querySelector('td.best');
+  const link = document.createElement('a');
+  link.className = 'result-link';
+  link.href = 'examples.html?dataset=' + exampleKeys[index];
+  link.textContent = cell.textContent;
+  cell.replaceChildren(link);
+});
+</script>
 </body>
 </html>
