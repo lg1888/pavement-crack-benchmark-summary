@@ -34,7 +34,7 @@
 <script>
 const datasets = {
   crack500: {name:'Crack500', image:'assets/crack500_examples_10.jpg', original:'https://github.com/fyangneil/pavement-crack-detection', originalCitation:'Zhang et al. (2016)', benchmark:'https://github.com/fyangneil/pavement-crack-detection', benchmarkCitation:'Zhang et al. (2016)', version:'V60'},
-  pavebench: {name:'PaveBench', image:'assets/pavebench_examples_10.jpg', original:'https://huggingface.co/datasets/MML-Group/PaveBench', originalCitation:'Li et al. (2026)', benchmark:'https://huggingface.co/datasets/MML-Group/PaveBench', benchmarkCitation:'Li et al. (2026)', version:'V60'},
+  pavebench: {name:'PaveBench', image:'assets/pavebench_v100_examples_20.png', original:'https://huggingface.co/datasets/MML-Group/PaveBench', originalCitation:'Li et al. (2026)', benchmark:'https://huggingface.co/datasets/MML-Group/PaveBench', benchmarkCitation:'Li et al. (2026)', version:'V100', comparison:true},
   cfd: {name:'CFD', image:'assets/cfd_examples_10.jpg', original:'https://github.com/cuilimeng/CrackForest-dataset', originalCitation:'Shi et al. (2016)', benchmark:'https://github.com/cuilimeng/CrackForest-dataset', benchmarkCitation:'Shi et al. (2016)', version:'V60'},
   gaps384: {name:'GAPs384', image:'assets/gaps384_examples_10.jpg', original:'https://www.tu-ilmenau.de/universitaet/fakultaeten/fakultaet-informatik-und-automatisierung/profil/institute-und-fachgebiete/institut-fuer-technische-informatik-und-ingenieurinformatik/fachgebiet-neuroinformatik-und-kognitive-robotik/data-sets-code/german-asphalt-pavement-distress-dataset-gaps', originalCitation:'Eisenbach et al. (2017)', benchmark:'https://github.com/fyangneil/pavement-crack-detection', benchmarkCitation:'Yang et al. (2019)', version:'V60'},
   crackls315: {name:'CrackLS315', image:'assets/crackls315_examples_10.jpg', original:'https://github.com/qinnzou/DeepCrack', originalCitation:'Zou et al. (2019)', benchmark:'https://github.com/qinnzou/DeepCrack', benchmarkCitation:'Zou et al. (2019)', version:'V60'},
@@ -50,7 +50,7 @@ const item = datasets[key] || datasets.pavebench;
 document.title = item.name + ' Prediction Examples';
 document.getElementById('title').textContent = item.name + ' — Prediction Examples';
 document.getElementById('figure').src = item.image;
-document.getElementById('predictionLabel').textContent = 'Prediction (' + item.version + ')';
+document.getElementById('predictionLabel').textContent = item.comparison ? 'Predictions (V60 and V100)' : 'Prediction (' + item.version + ')';
 document.getElementById('originalCitation').textContent = item.originalCitation;
 document.getElementById('benchmarkCitation').textContent = item.benchmarkCitation;
 for (const [id, url, label] of [
