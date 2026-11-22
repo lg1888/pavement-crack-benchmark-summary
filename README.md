@@ -1,5 +1,3 @@
 # Pavement-Crack Dataset Benchmark Summary
 
-[SAM3 + Local Darkness benchmark table](pavement_crack_dataset_benchmark.html)
-
-[Earlier benchmark examples](examples.html)
+[![Pavement-crack dataset benchmark table](benchmark_table_clean.png)](https://lg1888.github.io/pavement-crack-benchmark-summary/)
